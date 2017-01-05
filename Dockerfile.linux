@@ -2,14 +2,14 @@ FROM lacledeslan/gamesvr:srcds.linux
 
 MAINTAINER Laclede's LAN <contact@lacledeslan.com>
 
-ENV SERVER_NAME="gamesvr-dods.linux"
+ENV SERVER_NAME="gamesvr-garrysmod.linux"
 
 WORKDIR /app/bin/
 
-# Install Day of Defeat: Source
+# Install Garry's Mod
 RUN useradd \
 		--shell /bin/bash \
-		DODS &&\
+		GARRYSMOD &&\
 	# Create output directory &&\
 		mkdir /app/bin --parents &&\
 	# Download &&\
@@ -19,10 +19,10 @@ RUN useradd \
 			+app_update 4020 validate \
 			+quit &&\
 	# Set permissions &&\
-		chown -R DODS /app/bin
+		chown -R GARRYSMOD /app/bin
 	
 COPY ./dist/ /app/bin/
 
-USER DODS
+USER GARRYSMOD
 
 CMD ["/bin/bash"]
