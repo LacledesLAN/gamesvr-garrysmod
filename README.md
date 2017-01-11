@@ -1,1 +1,1 @@
-# gamesvr-garrysmod
+# gamesvr-srcds-garrysmod
