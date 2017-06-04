@@ -1,10 +1,13 @@
 FROM lacledeslan/gamesvr-srcds:linux
 
-MAINTAINER Laclede's LAN <contact@lacledeslan.com>
+LABEL maintainer "Laclede's LAN <contact@lacledeslan.com>"
 
 ENV IMAGE="gamesvr-srcds-garrysmod:linux"
 
-WORKDIR /app/bin/
+HEALTHCHECK NONE
+
+# Copy files (if any) from the build-cache
+COPY ./build-cache/ /app/bin/
 
 # Install Garry's Mod
 RUN useradd \
@@ -20,8 +23,8 @@ RUN useradd \
 			+quit &&\
 	# Set permissions &&\
 		chown -R GARRYSMOD /app/bin
-	
-COPY ./dist/ /app/bin/
+
+WORKDIR /app/bin/
 
 USER GARRYSMOD
 
