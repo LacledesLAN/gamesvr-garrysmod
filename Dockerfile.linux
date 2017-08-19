@@ -1,12 +1,12 @@
 # escape=`
 
-FROM lacledeslan/steamcmd:linux as steamcmd-builder
+FROM lacledeslan/steamcmd:linux as steamcmd-gmod-builder
 
 # Copy cached build files (if any)
 COPY ./build-cache/ /app/output
 
 # Install Garry's Mod
-RUN echo $'\n\nDownloading Garry's Mod via SteamCMD' &&`
+RUN echo $'\n\nDownloading Garrys Mod via SteamCMD' &&`
         /app/steamcmd.sh `
             +login anonymous `
             +force_install_dir /app/output `
@@ -50,7 +50,7 @@ USER GarrysMod
 RUN ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 # Copy in from SteamCMD Builder
-COPY --from=steamcmd-builder /app/output /app
+COPY --from=steamcmd-gmod-builder /app/output /app
 
 WORKDIR /app
 
