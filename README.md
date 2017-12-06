@@ -1,5 +1,4 @@
-# gamesvr-srcds-garrysmod
-
+# Garry's Mod Dedicated Server in Docker
 
 # Linux Container
 [![](https://images.microbadger.com/badges/version/lacledeslan/gamesvr-garrysmod.svg)](https://microbadger.com/images/lacledeslan/gamesvr-garrysmod "Get your own version badge on microbadger.com")
