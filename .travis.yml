@@ -1,0 +1,33 @@
+sudo: required
+os: linux
+language: minimal
+addons:
+  apt:
+    packages:
+    - docker-ce
+git:
+  depth: 4
+services:
+  - docker
+
+before_install:
+- docker pull debian:stable-slim
+
+script:
+  - docker version
+  - docker build --no-cache --tag lltest/gamesvr-garrysmod --tag lacledeslan/gamesvr-garrysmod --build-arg BUILDNODE=TravisCI ./linux
+  - docker run -it --rm lltest/gamesvr-garrysmod ./ll-tests/gamesvr-garrysmod.sh
+
+notifications:
+  slack:
+    secure: XF+BcnAvBgFEcv0Bbk+XTywNkD1E+zTjIWnJJ13QtUNO++AYNXzsnJ5Ht60u6ILVhxvzXAtvcVSc9j0yhE/cM/AUb5FmmxtFUwwJKI13lZV5QERfuBxZVhIrHaMnbqqfkKClRTRFa9hHrNIc07rme3zuBGyOZ9ij/lqfzx1gmfuv/u+3qyzyFwQbp4VLj367Og9EDjnvYlMp5/fyPzx0MbFKbOyBG30d0aH3zzxamUdsJJ/2aeba93dd2RxkRjaBzzZJ7Zl1VPbRo0bL+DDeygqjYwlbEfjsw2VlGRxwsqzR2VTrIppx9qYWeukKqb29Hc55eHS5eM7QeG/vvnlBK8QrGNP89otU9E5Qj4Ngxrs9x3+1rN/7vS+dtvXkAlfjZfr25vSsNHl5uSRx9bz4jj6vb7tzbhFxyty+5zicTKc4vFsodNbn3zNTBVlvLi3hQiicpqaXXUqnoKr9wr3WfBpGW1Gbd6OP07M/QEfwH76klwUr3s3JYrH2dZAIDnXiwBh10wDqE9C+735EVdCoWqxttULcJQYj2ikBPmXcbqoTmwtSKK9DYbD1IchQeqFHbxxnVMVETE8k+JYlK9sIrgSH+xtJ6hq4c+NpXhyWJVj8pQr+IA4Czi8Iwc+DZabRsjDdW4HmPJdrLnAOzXvGL7iZiTkrpFDqDkjMjEbYfd0=
+
+before_deploy:
+  - docker login -u "$DOCKERHUB_USER" -p "$DOCKERHUB_PASS";
+deploy:
+  provider: script
+  script: docker push lacledeslan/gamesvr-garrysmod
+  on:
+    branch: master
+after_deploy:
+  - curl -X POST https://hooks.microbadger.com/images/lacledeslan/gamesvr-garrysmod/$MICROBADGER_TOKEN

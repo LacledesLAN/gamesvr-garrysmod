@@ -1,5 +1,5 @@
 #!/bin/bash -i
-declare LLCK_LOGFILE="/app/ll-tests/gamesvr-cssource.log";
+declare LLCK_LOGFILE="/app/ll-tests/gamesvr-garrysmod.log";
 declare LLCK_CMD="/app/srcds_run -game garrysmod +map gm_construct -insecure -norestart +sv_lan 1 +maxplayers 32";
 declare LLCK_CMD_TIMEOUT=60;
 
