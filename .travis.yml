@@ -11,11 +11,11 @@ services:
   - docker
 
 before_install:
-- docker pull debian:stable-slim
+  - docker pull debian:stable-slim
 
 script:
   - docker version
-  - docker build --no-cache --tag lltest/gamesvr-garrysmod --tag lacledeslan/gamesvr-garrysmod --build-arg BUILDNODE=TravisCI ./linux
+  - docker build --no-cache --tag lltest/gamesvr-garrysmod --tag lacledeslan/gamesvr-garrysmod --build-arg BUILDNODE=TravisCI --build-arg SOURCE_COMMIT="$TRAVIS_COMMIT" ./linux
   - docker run -it --rm lltest/gamesvr-garrysmod ./ll-tests/gamesvr-garrysmod.sh
 
 notifications:
