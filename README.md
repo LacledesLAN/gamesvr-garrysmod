@@ -6,22 +6,25 @@ Garry's Mod (GMod) is a sandbox physics game created by Garry Newman originally 
 
 This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its contents are intended to be bare-bones and used as a stock server. If any documentation is unclear or it has any issues please see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
-# Linux Container
+## Linux Container
 [![](https://images.microbadger.com/badges/version/lacledeslan/gamesvr-garrysmod.svg)](https://microbadger.com/images/lacledeslan/gamesvr-garrysmod "Get your own version badge on microbadger.com")
 [![](https://images.microbadger.com/badges/image/lacledeslan/gamesvr-garrysmod.svg)](https://microbadger.com/images/lacledeslan/gamesvr-garrysmod "Get your own image badge on microbadger.com")
 
-**Download**
+### Download
 
 ```
 docker pull lacledeslan/gamesvr-garrysmod
 ```
 
-**Run Interactive Server**
+### Run Interactive Server
+
 ```
 docker run -it --rm lacledeslan/gamesvr-garrysmod ./srcds_run -game garrysmod +map gm_construct +sv_lan 1 +maxplayers 32";
 ```
 
-**Run Self Tests**
+### Run Self Tests
+The image includes a test script that can be used to verify its contents. No changes or pull-requests will be accepted to this repository if any tests fail.
+
 ```
 docker run -it --rm lacledeslan/gamesvr-garrysmod ./ll-tests/gamesvr-garrysmod.sh
 ```
