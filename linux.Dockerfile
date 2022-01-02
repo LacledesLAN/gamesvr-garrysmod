@@ -5,10 +5,10 @@ FROM lacledeslan/steamcmd:linux as gmod-builder
 COPY ./build-cache /output
 
 # Download Garrys Mod
-RUN /app/steamcmd.sh +login anonymous +force_install_dir /output +app_update 4020 validate +quit;
+RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
 
 #=======================================================================
-FROM debian:stretch-slim
+FROM debian:bullseye-slim
 
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
@@ -17,7 +17,7 @@ HEALTHCHECK NONE
 
 RUN dpkg --add-architecture i386 &&`
     apt-get update && apt-get install -y `
-        ca-certificates lib32gcc1 lib32tinfo5 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
+        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux &&`
     apt-get clean &&`
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
@@ -38,7 +38,7 @@ RUN useradd --home /app --gid root --system GarrysMod &&`
 
 COPY --chown=GarrysMod:root --from=gmod-builder /output /app
 
-COPY --chown=GarrysMod:root ./ll-tests /app/ll-tests
+COPY --chown=GarrysMod:root dist/linux/ll-tests /app/ll-tests
 
 RUN chmod +x /app/ll-tests/*.sh;
 
