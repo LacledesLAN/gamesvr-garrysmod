@@ -7,6 +7,8 @@ COPY ./build-cache /output
 # Download Garrys Mod
 RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
 
+COPY ./dist/linux/ll-tests /output/ll-tests
+
 #=======================================================================
 FROM debian:bullseye-slim
 
@@ -33,20 +35,16 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
 
 # Set up Enviornment
 RUN useradd --home /app --gid root --system GarrysMod &&`
-    mkdir -p /app/ll-tests &&`
+    mkdir --parents /app/.steam/sdk32 &&`
     chown GarrysMod:root -R /app;
 
 COPY --chown=GarrysMod:root --from=gmod-builder /output /app
 
-COPY --chown=GarrysMod:root dist/linux/ll-tests /app/ll-tests
-
-RUN chmod +x /app/ll-tests/*.sh;
+RUN chmod +x /app/ll-tests/*.sh &&`
+    echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
+    ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 USER GarrysMod
-
-RUN echo $'\n\nLinking steamclient.so to prevent srcds_run errors' &&`
-        mkdir --parents /app/.steam/sdk32 &&`
-        ln -s /app/bin/steamclient.so /app/.steam/sdk32/steamclient.so
 
 WORKDIR /app
 
