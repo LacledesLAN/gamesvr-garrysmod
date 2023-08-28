@@ -1,5 +1,5 @@
 # escape=`
-FROM lacledeslan/steamcmd:linux as gmod-builder
+FROM lacledeslan/steamcmd as gmod-builder
 
 # Copy cached build files (if any)
 COPY ./build-cache /output
