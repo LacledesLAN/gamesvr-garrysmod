@@ -2,7 +2,7 @@
 FROM lacledeslan/steamcmd as gmod-builder
 
 # Copy cached build files (if any)
-COPY ./build-cache /output
+COPY ./dist/linux/build-cache /output
 
 # Download Garrys Mod
 RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
@@ -10,7 +10,7 @@ RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 402
 COPY ./dist/linux/ll-tests /output/ll-tests
 
 #=======================================================================
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 ARG BUILDNODE=unspecified
 ARG SOURCE_COMMIT=unspecified
