@@ -6,7 +6,7 @@
         {
             "label": "Build Linux Image",
             "type": "shell",
-            "command": "docker pull lacledeslan/steamcmd:linux; docker pull bullseye-slim; docker build . --rm -f linux.Dockerfile -t lltest/gamesvr-garrysmod --no-cache --build-arg BUILDNODE=$env:computername;",
+            "command": "docker pull lacledeslan/steamcmd:linux; docker pull bookworm-slim; docker build . --rm -f linux.Dockerfile -t lltest/gamesvr-garrysmod --no-cache --build-arg BUILDNODE=$env:computername;",
             "dependsOn": "download-sub-modules",
             "group": "build",
             "problemMatcher": [],
