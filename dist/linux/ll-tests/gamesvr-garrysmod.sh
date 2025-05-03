@@ -149,7 +149,8 @@ should_have 'Using default binary: ./srcds_linux' 'Server is starting';
 should_lack 'Server restart in 10 seconds' 'Server is not boot-looping';
 should_lack 'Running the dedicated server as root' 'Server is not running under root';
 should_lack 'Please install (lib32tinfo5 / ncurses-libs.i686 / equivalent) to enable readline' 'readline is enabled';
-should_have 'Game_srv.so loaded for "Garry' 'srcds_run loaded Garrys Mod';
+should_have 'Game_srv.so loaded for "My Garry\'s Mod Server"' 'srcds_run loaded Garrys Mod';
+should_have 'Assigned anonymous gameserver Steam ID' 'default sever not registering with upstream listing';
 should_echo "sv_cheats" '"sv_cheats" = "0"';
 #####################################################################################################
 #####################################################################################################
