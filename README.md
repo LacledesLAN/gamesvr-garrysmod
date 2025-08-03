@@ -12,8 +12,8 @@ This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its c
 
 ### Download
 
-```
-docker pull lacledeslan/gamesvr-garrysmod
+```shell
+docker pull lacledeslan/gamesvr-garrysmod;
 ```
 
 ### Run Interactive Server

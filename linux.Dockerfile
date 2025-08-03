@@ -4,7 +4,7 @@ FROM lacledeslan/steamcmd as gmod-builder
 # Copy cached build files (if any)
 COPY ./dist/linux/build-cache /output
 
-# Download Garrys Mod
+# Download Garry's Mod
 RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
 
 COPY ./dist/linux/ll-tests /output/ll-tests
@@ -33,7 +33,7 @@ LABEL com.lacledeslan.build-node=$BUILDNODE `
       org.label-schema.description="Garry's Mod Dedicated Server" `
       org.label-schema.vcs-url="https://github.com/LacledesLAN/gamesvr-garrysmod"
 
-# Set up Enviornment
+# Set up Environment
 RUN useradd --home /app --gid root --system GarrysMod &&`
     mkdir --parents /app/.steam/sdk32 &&`
     chown GarrysMod:root -R /app;
