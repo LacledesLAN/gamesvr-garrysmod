@@ -19,7 +19,7 @@ docker pull lacledeslan/gamesvr-garrysmod;
 ### Run Interactive Server
 
 ```shell
-docker run -it --rm lacledeslan/gamesvr-garrysmod ./srcds_run -game garrysmod +map gm_construct +sv_lan 1 +maxplayers 32";
+docker run -it --rm lacledeslan/gamesvr-garrysmod ./srcds_run -game garrysmod +map gm_construct +sv_lan 1 +maxplayers 32;
 ```
 
 ### Run Self Tests
