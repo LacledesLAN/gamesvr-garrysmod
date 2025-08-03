@@ -16,18 +16,18 @@ This repository is maintained by [Laclede's LAN](https://lacledeslan.com). Its c
 docker pull lacledeslan/gamesvr-garrysmod;
 ```
 
-### Run Interactive Server
-
-```shell
-docker run -it --rm lacledeslan/gamesvr-garrysmod ./srcds_run -game garrysmod +map gm_construct +sv_lan 1 +maxplayers 32;
-```
-
 ### Run Self Tests
 
 The image includes a test script that can be used to verify its contents. No changes or pull-requests will be accepted to this repository if any tests fail.
 
 ```shell
 docker run -it --rm lacledeslan/gamesvr-garrysmod ./ll-tests/gamesvr-garrysmod.sh
+```
+
+### Run Interactive Server
+
+```shell
+docker run -it --net=host lacledeslan/gamesvr-garrysmod ./srcds_run -game garrysmod +map gm_construct +sv_lan 1 +maxplayers 32;
 ```
 
 ## Getting Started with Game Servers in Docker
