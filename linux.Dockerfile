@@ -4,7 +4,8 @@ FROM lacledeslan/steamcmd AS gmod-builder
 COPY ./dist/linux/build-cache /output
 
 # Download Garry's Mod
-RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
+RUN mkdir --parents /output && \
+    /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 4020 validate +quit;
 
 COPY ./dist/linux/ll-tests /output/ll-tests
 
@@ -20,12 +21,6 @@ ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 HEALTHCHECK NONE
 
-RUN dpkg --add-architecture i386 && \
-    apt-get update && apt-get install -y \
-        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux && \
-    apt-get clean && \
-    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
-
 LABEL architecture="amd64" \
       com.lacledeslan.build-node="$BUILD_NODE" \
       maintainer="Laclede's LAN <contact@lacledeslan.com>" \
@@ -34,6 +29,12 @@ LABEL architecture="amd64" \
       org.opencontainers.image.revision="$GIT_REVISION" \
       org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-garrysmod" \
       org.opencontainers.image.vendor="Laclede's LAN"
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && apt-get install -y \
+        ca-certificates lib32gcc-s1 libncurses5:i386 libstdc++6 libstdc++6:i386 locales locales-all tmux && \
+    apt-get clean && \
+    rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
 # Set up Environment
 RUN useradd --home /app --gid root --system GarrysMod && \
