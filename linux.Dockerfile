@@ -8,11 +8,15 @@ RUN /app/steamcmd.sh +force_install_dir /output +login anonymous +app_update 402
 
 COPY ./dist/linux/ll-tests /output/ll-tests
 
-#=======================================================================
+
+#---------------------------------
 FROM debian:bookworm-slim
 
-ARG BUILD_NODE=unspecified
-ARG GIT_REVISION=unspecified
+ARG BUILD_DATE=unspecified \
+    BUILD_NODE=unspecified \
+    GIT_REVISION=unspecified
+
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 HEALTHCHECK NONE
 
@@ -22,15 +26,14 @@ RUN dpkg --add-architecture i386 && \
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*;
 
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 LC_ALL=en_US.UTF-8
-
 LABEL architecture="amd64" \
-    com.lacledeslan.build-node="$BUILD_NODE" \
-    maintainer="Laclede's LAN <contact@lacledeslan.com>" \
-    org.opencontainers.image.description="Garry's Mod Dedicated Server" \
-    org.opencontainers.image.revision="$GIT_REVISION" \
-    org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-garrysmod" \
-    org.opencontainers.image.vendor="Laclede's LAN"
+      com.lacledeslan.build-node="$BUILD_NODE" \
+      maintainer="Laclede's LAN <contact@lacledeslan.com>" \
+      org.opencontainers.image.created="$BUILD_DATE" \
+      org.opencontainers.image.description="Garry's Mod Dedicated Server" \
+      org.opencontainers.image.revision="$GIT_REVISION" \
+      org.opencontainers.image.source="https://github.com/LacledesLAN/gamesvr-garrysmod" \
+      org.opencontainers.image.vendor="Laclede's LAN"
 
 # Set up Environment
 RUN useradd --home /app --gid root --system GarrysMod && \
